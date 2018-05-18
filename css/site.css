@@ -1,0 +1,90 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 25, 2017, 3:27:44 PM
+    Author     : alex.arnold
+*/
+
+body {
+    padding-top: 70px;
+    /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+hr {
+    border-color: #cccccc;
+}
+
+@media (min-width: 1824px) {
+    .container {
+        width: 1440px;
+    }
+}
+
+.waypoints-list {
+    margin: 2em 0;
+    border-radius: 1em;
+    overflow: hidden;
+}
+
+.waypoints-list-item-field-group {
+    margin-left: 1.5em;
+}
+
+label {
+    min-width: 7em;
+    cursor: pointer;
+    color: #333333 !important;
+}
+label:after {
+    content: ': ';
+}
+label.required:after {
+    content: ': *';
+}
+
+.waypoint-remove-button-list-item {
+    margin-top: 1em;
+}
+
+#mapdiv {
+    height: 400px;
+    width: 100%;
+    background-color: #cccccc;
+    margin: 2em 0;
+}
+
+.gpx-output {
+    width: 100%;
+    background-color: #eeeeee;
+}
+
+.waypoints-list > li {
+    background: #eeeeee;
+    padding: 0.5em;
+}
+.waypoints-list > li:nth-child(odd) {
+    background: #cccccc;
+}
+
+.waypoints-list span {
+    cursor: pointer;
+}
+
+footer {
+    margin-top: 2em;
+}
+
+.waypoint-name-list-item {
+    display: block !important;
+}
+
+.waypoint-description-list-item {
+    width: 100%;
+}
+
+.waypoint-description-list-item textarea {
+    height: 5em;
+}

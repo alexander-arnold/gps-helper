@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^gpxbuilder.com [NC]
+RewriteRule ^(.*)$ http://www.gpxbuilder.com/$1 [L,R=301,NC]
+
+#Redirect 301 /index.html /index.php
