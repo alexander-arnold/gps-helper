@@ -153,72 +153,15 @@ $_SESSION['gpx_key'] = $nonce;
                 <div class="col-lg-6">
                     <h3 class="h3">Waypoints</h3>
                     <ul class="list-unstyled waypoints-list" id="waypoints-list">
-                        <li>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-chevron-up"></span>
-                                        <span class="glyphicon glyphicon-chevron-down"></span>
-                                    </td>
-                                    <td>
-                                        <ul class="list-inline waypoints-list-item-field-group">
-                                            <li class="waypoint-name-list-item">
-                                                <label class="label required">Name</label>
-                                                <input type="text" class="form-control required waypoint-name" value="North Fork Bouquet Trailhead" />
-                                            </li>
-                                            <li>
-                                                <label class="label required">Latitude</label>
-                                                <input type="text" class="form-control required lat" value="44.1122246" />
-                                            </li>
-                                            <li>
-                                                <label class="label required">Longitude</label>
-                                                <input type="text" class="form-control required lng" value="-73.707608" />
-                                            </li>
-                                            <li class="waypoint-description-list-item">
-                                                <label class="label">Description</label>
-                                                <textarea class="form-control desc">Park on the side of the road here wherever you can find a safe spot just east of the bridge over the river.  You'll be looking for a herdpath into the woods heading south.  As you follow the herdpath through the woods you will pass by a bunch of really great swimming holes along the North Fork Bouquet.  Start out on the trail on the east side of the river.  After a half mile you'll cross over to the west side of the river which is the herdpath you will follow.</textarea>
-                                            </li>
-                                            <li class="waypoint-remove-button-list-item">
-                                                <button type="button" class="btn btn-primary waypoint-remove-button">Remove</button>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                            </table>
-                        </li>
-                        <li>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-chevron-up"></span>
-                                        <span class="glyphicon glyphicon-chevron-down"></span>
-                                    </td>
-                                    <td>
-                                        <ul class="list-inline waypoints-list-item-field-group">
-                                            <li class="waypoint-name-list-item">
-                                                <label class="label required">Name</label>
-                                                <input type="text" class="form-control required waypoint-name" value="River Crossings" />
-                                            </li>
-                                            <li>
-                                                <label class="label required">Latitude</label>
-                                                <input type="text" class="form-control required lat" value="44.1100214" />
-                                            </li>
-                                            <li>
-                                                <label class="label required">Longitude</label>
-                                                <input type="text" class="form-control required lng" value="-73.7189054" />
-                                            </li>
-                                            <li class="waypoint-description-list-item">
-                                                <label class="label">Description</label>
-                                                <textarea class="form-control desc">The herd path at this point will begin to cross several streams in the area.  Be careful rock-hopping and make sure to look for cairns (small piles of rocks) to guide your way.</textarea>
-                                            </li>
-                                            <li class="waypoint-remove-button-list-item">
-                                                <button type="button" class="btn btn-primary waypoint-remove-button">Remove</button>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                            </table>
-                        </li>
+                        <?php
+                        if ($gpx_data === false) {
+                            include $_SERVER['DOCUMENT_ROOT'] . '/sample_waypoints.php';
+                        } else {
+                            foreach ($gpx_data->waypoints as $wp) {
+                                $wp->toHtml();
+                            }
+                        }
+                        ?>
                     </ul>
                     <ul class="list-inline">
                         <li>
@@ -237,237 +180,10 @@ $_SESSION['gpx_key'] = $nonce;
                     <ul class="list-unstyled waypoints-list" id="routepoints-list">
                         <?php
                         if ($gpx_data === false) {
-                            ?>
-                            <li>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <span class="glyphicon glyphicon-chevron-up"></span>
-                                            <span class="glyphicon glyphicon-chevron-down"></span>
-                                        </td>
-                                        <td>
-                                            <ul class="list-inline waypoints-list-item-field-group">
-                                                <li>
-                                                    <label class="label required">Latitude</label>
-                                                    <input type="text" class="form-control required lat" value="44.11222" />
-                                                </li>
-                                                <li>
-                                                    <label class="label required">Longitude</label>
-                                                    <input type="text" class="form-control required lng" value="-73.70761" />
-                                                </li>
-                                                <li>
-                                                    <button type="button" class="btn btn-primary waypoint-remove-button">Remove</button>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </li>
-                            <li>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <span class="glyphicon glyphicon-chevron-up"></span>
-                                            <span class="glyphicon glyphicon-chevron-down"></span>
-                                        </td>
-                                        <td>
-                                            <ul class="list-inline waypoints-list-item-field-group">
-                                                <li>
-                                                    <label class="label required">Latitude</label>
-                                                    <input type="text" class="form-control required lat" value="44.11242" />
-                                                </li>
-                                                <li>
-                                                    <label class="label required">Longitude</label>
-                                                    <input type="text" class="form-control required lng" value="-73.70838" />
-                                                </li>
-                                                <li>
-                                                    <button type="button" class="btn btn-primary waypoint-remove-button">Remove</button>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </li>
-                            <li>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <span class="glyphicon glyphicon-chevron-up"></span>
-                                            <span class="glyphicon glyphicon-chevron-down"></span>
-                                        </td>
-                                        <td>
-                                            <ul class="list-inline waypoints-list-item-field-group">
-                                                <li>
-                                                    <label class="label required">Latitude</label>
-                                                    <input type="text" class="form-control required lat" value="44.11253" />
-                                                </li>
-                                                <li>
-                                                    <label class="label required">Longitude</label>
-                                                    <input type="text" class="form-control required lng" value="-73.70871" />
-                                                </li>
-                                                <li>
-                                                    <button type="button" class="btn btn-primary waypoint-remove-button">Remove</button>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </li>
-                            <li>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <span class="glyphicon glyphicon-chevron-up"></span>
-                                            <span class="glyphicon glyphicon-chevron-down"></span>
-                                        </td>
-                                        <td>
-                                            <ul class="list-inline waypoints-list-item-field-group">
-                                                <li>
-                                                    <label class="label required">Latitude</label>
-                                                    <input type="text" class="form-control required lat" value="44.11271" />
-                                                </li>
-                                                <li>
-                                                    <label class="label required">Longitude</label>
-                                                    <input type="text" class="form-control required lng" value="-73.70913" />
-                                                </li>
-                                                <li>
-                                                    <button type="button" class="btn btn-primary waypoint-remove-button">Remove</button>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </li>
-                            <li>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <span class="glyphicon glyphicon-chevron-up"></span>
-                                            <span class="glyphicon glyphicon-chevron-down"></span>
-                                        </td>
-                                        <td>
-                                            <ul class="list-inline waypoints-list-item-field-group">
-                                                <li>
-                                                    <label class="label required">Latitude</label>
-                                                    <input type="text" class="form-control required lat" value="44.11227" />
-                                                </li>
-                                                <li>
-                                                    <label class="label required">Longitude</label>
-                                                    <input type="text" class="form-control required lng" value="-73.71131" />
-                                                </li>
-                                                <li>
-                                                    <button type="button" class="btn btn-primary waypoint-remove-button">Remove</button>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </li>
-                            <li>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <span class="glyphicon glyphicon-chevron-up"></span>
-                                            <span class="glyphicon glyphicon-chevron-down"></span>
-                                        </td>
-                                        <td>
-                                            <ul class="list-inline waypoints-list-item-field-group">
-                                                <li>
-                                                    <label class="label required">Latitude</label>
-                                                    <input type="text" class="form-control required lat" value="44.11185" />
-                                                </li>
-                                                <li>
-                                                    <label class="label required">Longitude</label>
-                                                    <input type="text" class="form-control required lng" value="-73.7114" />
-                                                </li>
-                                                <li>
-                                                    <button type="button" class="btn btn-primary waypoint-remove-button">Remove</button>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </li>
-                            <li>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <span class="glyphicon glyphicon-chevron-up"></span>
-                                            <span class="glyphicon glyphicon-chevron-down"></span>
-                                        </td>
-                                        <td>
-                                            <ul class="list-inline waypoints-list-item-field-group">
-                                                <li>
-                                                    <label class="label required">Latitude</label>
-                                                    <input type="text" class="form-control required lat" value="44.11122" />
-                                                </li>
-                                                <li>
-                                                    <label class="label required">Longitude</label>
-                                                    <input type="text" class="form-control required lng" value="-73.7124" />
-                                                </li>
-                                                <li>
-                                                    <button type="button" class="btn btn-primary waypoint-remove-button">Remove</button>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </li>
-                            <li>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <span class="glyphicon glyphicon-chevron-up"></span>
-                                            <span class="glyphicon glyphicon-chevron-down"></span>
-                                        </td>
-                                        <td>
-                                            <ul class="list-inline waypoints-list-item-field-group">
-                                                <li>
-                                                    <label class="label required">Latitude</label>
-                                                    <input type="text" class="form-control required lat" value="44.11075" />
-                                                </li>
-                                                <li>
-                                                    <label class="label required">Longitude</label>
-                                                    <input type="text" class="form-control required lng" value="-73.71397" />
-                                                </li>
-                                                <li>
-                                                    <button type="button" class="btn btn-primary waypoint-remove-button">Remove</button>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </li>
-                            <?php
+                            include $_SERVER['DOCUMENT_ROOT'] . '/sample_routepoints.php';
                         } else {
                             foreach ($gpx_data->routepoints as $rp) {
-                                ?>
-                                <li>
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <span class="glyphicon glyphicon-chevron-up"></span>
-                                                <span class="glyphicon glyphicon-chevron-down"></span>
-                                            </td>
-                                            <td>
-                                                <ul class="list-inline waypoints-list-item-field-group">
-                                                    <li>
-                                                        <label class="label required">Latitude</label>
-                                                        <input type="text" class="form-control required lat" value="<?php echo $rp->lat; ?>" />
-                                                    </li>
-                                                    <li>
-                                                        <label class="label required">Longitude</label>
-                                                        <input type="text" class="form-control required lng" value="<?php echo $rp->lng; ?>" />
-                                                    </li>
-                                                    <li>
-                                                        <button type="button" class="btn btn-primary waypoint-remove-button">Remove</button>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </li>
-                                <?php
+                                $rp->toHtml();
                             }
                         }
                         ?>
@@ -503,15 +219,6 @@ $_SESSION['gpx_key'] = $nonce;
                     <hr />
                     <h3 class="h3" id="output">GPX File Output</h3>
                     <p class="text-left">Copy and paste the output below into a file with a .gpx extension. If output type is route then be sure to fill out the route's name tag so it is easy to find on a GPS.</p>
-                    <!--                    <label for="output-type">Output Type</label>
-                                        <select id="output-type" class="form-control" style="margin-bottom: 1em;">
-                                            <option value="wp">Waypoints</option>
-                                            <option value="rt">Route</option>
-                                        </select>-->
-                    <!--                    <div class="route-name-input-wrapper" style="display: none;">
-                                            <label for="route-name">Route Name</label>
-                                            <input type="text" id="route-name" class="form-control" style="margin-bottom: 1em;" />
-                                        </div>-->
                     <ul class="list-inline">
                         <li>
                             <button type="button" class="btn btn-primary" id="build-gpx" style="display: block; margin-bottom: 1em;">Build GPX</button>
