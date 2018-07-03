@@ -35,23 +35,6 @@ $_SESSION['gpx_key'] = $nonce;
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <script>
-            (function (i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r;
-                i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-                a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0];
-                a.async = 1;
-                a.src = g;
-                m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-            ga('create', 'UA-96180501-1', 'auto');
-            ga('send', 'pageview');
-
-        </script>
     </head>
     <body>
         <ul id="waypoint-item-template" style="display: none;">
@@ -155,7 +138,7 @@ $_SESSION['gpx_key'] = $nonce;
                     <ul class="list-unstyled waypoints-list" id="waypoints-list">
                         <?php
                         if ($gpx_data === false) {
-                            include $_SERVER['DOCUMENT_ROOT'] . '/sample_waypoints.php';
+                            include $_SERVER['DOCUMENT_ROOT'] . '/sample_waypoints_1.php';
                         } else {
                             foreach ($gpx_data->waypoints as $wp) {
                                 $wp->toHtml();
@@ -180,7 +163,7 @@ $_SESSION['gpx_key'] = $nonce;
                     <ul class="list-unstyled waypoints-list" id="routepoints-list">
                         <?php
                         if ($gpx_data === false) {
-                            include $_SERVER['DOCUMENT_ROOT'] . '/sample_routepoints.php';
+//                            include $_SERVER['DOCUMENT_ROOT'] . '/sample_routepoints.php';
                         } else {
                             foreach ($gpx_data->routepoints as $rp) {
                                 $rp->toHtml();
