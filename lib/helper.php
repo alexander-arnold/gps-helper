@@ -25,7 +25,7 @@ class helper {
     }
 
     public static function validate_request() {
-        if (count($_FILES) !== 1 || !isset($_FILES['file_import']) || $_FILES['file_import']['error'] == 4)
+        if (count($_FILES) !== 1 || !isset($_FILES['file_import']) || $_FILES['file_import']['error'] == 4 || $_FILES['file_import']['size'] === 0)
             return 'No file uploaded';
 
         if ($_FILES['file_import']['error'] == 1 || $_FILES['file_import']['error'] == 2)

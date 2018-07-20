@@ -99,6 +99,8 @@ gpx.updateMap = function () {
 
         var locations = [];
 
+        var markers = [];
+
         for (var i = 0; i < gpx.routepoints.length; i++) {
 
             if (gpx.routepoints[i].pointType === 'rt') {
@@ -107,39 +109,52 @@ gpx.updateMap = function () {
                     position: new google.maps.LatLng(gpx.routepoints[i].lat, gpx.routepoints[i].lng),
                     label: String(i + 1),
                     animation: google.maps.Animation.DROP,
-                    map: map
+//                    map: map
                 });
+
+                markers.push(marker);
 
                 bounds.extend(marker.position);
                 locations.push(marker.position);
 
                 google.maps.event.addListener(marker, 'click', (function (marker, i) {
                     return function () {
-                        infowindow.setContent('<h4>RT ' + (i + 1) + '</h4> <span style="font-weight: bold">' + gpx.routepoints[i].lat + ', ' + gpx.routepoints[i].lng + '</span>');
+                        infowindow.setContent('<h4>RT ' + (i + 1) + '</h4> \n\
+                            <p style="font-weight: bold">' + gpx.routepoints[i].lat + ', ' + gpx.routepoints[i].lng + '</p>\
+                            <a onclick="gpx.removeRoutePoint(' + i + ')">Remove route point</a>');
                         infowindow.open(map, marker);
                     };
                 })(marker, i));
 
             } else if (gpx.routepoints[i].pointType === 'wp') {
-                
+
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(gpx.routepoints[i].lat, gpx.routepoints[i].lng),
                     icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
                     animation: google.maps.Animation.DROP,
                     map: map
                 });
-                
+
                 bounds.extend(marker.position);
-                
+
                 google.maps.event.addListener(marker, 'click', (function (marker, i) {
                     return function () {
-                        infowindow.setContent('<h4>' + gpx.routepoints[i].name + '</h4> <span style="font-weight: bold">' + gpx.routepoints[i].lat + ', ' + gpx.routepoints[i].lng + '</span> <p>' + gpx.routepoints[i].desc + '</p>');
+                        infowindow.setContent('<h4>' + gpx.routepoints[i].name + '</h4> \
+                        <span style="font-weight: bold">' + gpx.routepoints[i].lat + ', ' + gpx.routepoints[i].lng + '</span> <p>' + gpx.routepoints[i].desc + '</p>\n\
+                        <a onclick="console.log(\'clicked\');">Click here</a>');
                         infowindow.open(map, marker);
                     };
                 })(marker, i));
             }
 
         }
+
+        var markerCluster = new MarkerClusterer(map, markers,
+                {
+                    imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+                    maxZoom: 15
+                });
+
 
         if (locations.length > 1) {
             var route = new google.maps.Polyline({
@@ -259,17 +274,17 @@ gpx.initClearRoutepointsListener = function () {
         for (var j = 0; j < inputs.length; j++) {
             jQuery(inputs[j]).attr('value', '');
         }
-        
+
         jQuery('.gpx-output').val('');
 //        var map = new google.maps.Map(document.getElementById('mapdiv'),
 //                {
 //                    styles: gpx.mapStyles
 //                });
-                
+
         gpx.updateMap();
     });
 
-    jQuery('#clear-waypoints-button').click(function() {
+    jQuery('#clear-waypoints-button').click(function () {
         var waypointsListItems = jQuery('#waypoints-list').children();
         for (var i = 0; i < waypointsListItems.length; i++) {
             if (i === 0)
@@ -291,6 +306,11 @@ gpx.initClearRoutepointsListener = function () {
         gpx.updateMap();
     });
 
+};
+
+gpx.removeRoutePoint = function (i) {
+    jQuery('#routepoints-list').children('li')[i].remove();
+    gpx.updateMap();
 };
 
 jQuery(document).ready(function () {

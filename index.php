@@ -9,10 +9,10 @@ $gpx_data = false;
 if (strtoupper($_SERVER['REQUEST_METHOD']) === 'POST' && isset($_POST['gpx_submit'])) {
     if (!gpx_lib\helper::verify_request())
         throw new Exception('invalid request');
-
+    
     $errors = gpx_lib\helper::validate_request();
-    $gpx_data = gpx_lib\helper::get_gpx_data();
-    $alex = '';
+    if ($errors === '')
+        $gpx_data = gpx_lib\helper::get_gpx_data();
 }
 
 $nonce = gpx_lib\helper::generate_nonce();
@@ -35,6 +35,7 @@ $_SESSION['gpx_key'] = $nonce;
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <script type="text/javascript" src="/js/markerclusterer.js"></script>
     </head>
     <body>
         <ul id="waypoint-item-template" style="display: none;">
@@ -118,9 +119,6 @@ $_SESSION['gpx_key'] = $nonce;
                         <li>
                             <a href="#output">GPX Output</a>
                         </li>
-                        <!--                        <li>
-                                                    <a href="#calculator">Calculator</a>
-                                                </li>-->
                     </ul>
                 </div>
             </div>
@@ -132,55 +130,6 @@ $_SESSION['gpx_key'] = $nonce;
                         <h1 id="top">GPX Builder</h1>
                         <!--<p>GPX waypoint and route file builder. Add waypoints and save the output as a .gpx file for uploading to handheld GPS units. More features to come soon!</p>-->
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <h3 class="h3">Waypoints</h3>
-                    <ul class="list-unstyled waypoints-list" id="waypoints-list">
-                        <?php
-                        if ($gpx_data === false) {
-                            include $_SERVER['DOCUMENT_ROOT'] . '/sample_waypoints_1.php';
-                        } else {
-                            foreach ($gpx_data->waypoints as $wp) {
-                                $wp->toHtml();
-                            }
-                        }
-                        ?>
-                    </ul>
-                    <ul class="list-inline">
-                        <li>
-                            <button type="button" class="btn btn-primary" id="add-waypoint-button">Add Waypoint</button>
-                        </li>
-                    </ul>
-                    <ul class="list-inline">
-                        <li>
-                            <button type="button" class="btn btn-secondary" id="clear-waypoints-button">Clear Waypoints</button>
-                        </li>
-                    </ul>
-                    <hr />
-                    <h3 class="h3">Route Points</h3>
-                    <label class="label">Route Name</label>
-                    <input type="text" class="form-control" id="route-name" />
-                    <ul class="list-unstyled waypoints-list" id="routepoints-list">
-                        <?php
-                        if ($gpx_data === false) {
-//                            include $_SERVER['DOCUMENT_ROOT'] . '/sample_routepoints.php';
-                        } else {
-                            foreach ($gpx_data->routepoints as $rp) {
-                                $rp->toHtml();
-                            }
-                        }
-                        ?>
-                    </ul>
-                    <ul class="list-inline">
-                        <li>
-                            <button type="button" class="btn btn-primary" id="add-routepoint-button">Add Route Point</button>
-                        </li>
-                    </ul>
-                    <ul class="list-inline">
-                        <li>
-                            <button type="button" class="btn btn-secondary" id="clear-routepoints-button">Clear Route Points</button>
-                        </li>
-                    </ul>
                 </div>
                 <div class="col-lg-6">
                     <h3 class="h3">Map View</h3>
@@ -211,6 +160,56 @@ $_SESSION['gpx_key'] = $nonce;
                         </li>
                     </ul>
                     <textarea class="gpx-output" rows="12" readonly></textarea>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="h3">Waypoints</h3>
+                    <ul class="list-unstyled waypoints-list" id="waypoints-list">
+                        <?php
+                        if ($gpx_data === false) {
+                            include $_SERVER['DOCUMENT_ROOT'] . '/sample_waypoints_1.php';
+//                            include $_SERVER['DOCUMENT_ROOT'] . '/sample_waypoints.php';
+                        } else {
+                            foreach ($gpx_data->waypoints as $wp) {
+                                $wp->toHtml();
+                            }
+                        }
+                        ?>
+                    </ul>
+                    <ul class="list-inline">
+                        <li>
+                            <button type="button" class="btn btn-primary" id="add-waypoint-button">Add Waypoint</button>
+                        </li>
+                    </ul>
+                    <ul class="list-inline">
+                        <li>
+                            <button type="button" class="btn btn-secondary" id="clear-waypoints-button">Clear Waypoints</button>
+                        </li>
+                    </ul>
+                    <hr />
+                    <h3 class="h3">Route Points</h3>
+                    <label class="label">Route Name</label>
+                    <input type="text" class="form-control" id="route-name" value="South Sister Loop" />
+                    <ul class="list-unstyled waypoints-list" id="routepoints-list">
+                        <?php
+                        if ($gpx_data === false) {
+                            include $_SERVER['DOCUMENT_ROOT'] . '/sample_routepoints_1.php';
+                        } else {
+                            foreach ($gpx_data->routepoints as $rp) {
+                                $rp->toHtml();
+                            }
+                        }
+                        ?>
+                    </ul>
+                    <ul class="list-inline">
+                        <li>
+                            <button type="button" class="btn btn-primary" id="add-routepoint-button">Add Route Point</button>
+                        </li>
+                    </ul>
+                    <ul class="list-inline">
+                        <li>
+                            <button type="button" class="btn btn-secondary" id="clear-routepoints-button">Clear Route Points</button>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
